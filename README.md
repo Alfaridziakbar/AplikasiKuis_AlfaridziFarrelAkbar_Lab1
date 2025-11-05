@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # aplikasikuis
 
 A new Flutter project.
@@ -14,3 +15,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# AplikasiKuis_AlfaridziFarrelAkbar_Lab1
+>>>>>>> 3ec20aa7d29656f801b2ef9dd7bbeeb71b1048b2
