@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/custom_textfield.dart';
+import '../widgets/primary_button.dart';
+import 'quiz_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,44 +11,56 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+
+  void startQuiz() {
+    if (nameController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Masukkan nama terlebih dahulu!')),
+      );
+      return;
+    }
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => QuizScreen(playerName: nameController.text),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.indigo[50],
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('assets/images/quiz.png', height: 150),
-              const SizedBox(height: 20),
-              Text(
-                "Masukkan Nama Kamu",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 10),
-              CustomTextField(controller: _nameController, hint: "Nama"),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  if (_nameController.text.isNotEmpty) {
-                    Navigator.pushNamed(
-                      context,
-                      '/quiz',
-                      arguments: _nameController.text,
-                    );
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.indigo,
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 12),
+      body: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('assets/Logo.png', height: 180),
+                const SizedBox(height: 40),
+                const Text(
+                  "Selamat Datang di Kuis Pengetahuan Umum!",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF512DA8),
+                  ),
                 ),
-                child: const Text("Mulai Kuis", style: TextStyle(color: Colors.white)),
-              ),
-            ],
+                const SizedBox(height: 20),
+                CustomTextField(
+                  controller: nameController,
+                  hintText: "Masukkan nama kamu...",
+                ),
+                const SizedBox(height: 30),
+                PrimaryButton(
+                  text: "Mulai Kuis",
+                  onPressed: startQuiz,
+                ),
+              ],
+            ),
           ),
         ),
       ),

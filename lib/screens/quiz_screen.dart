@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import '../utils/question_data.dart';
 import '../widgets/question_card.dart';
 import '../widgets/answer_button.dart';
+import 'result_screen.dart';
 
 class QuizScreen extends StatefulWidget {
-  const QuizScreen({super.key});
+  final String playerName;
+  const QuizScreen({super.key, required this.playerName});
 
   @override
   State<QuizScreen> createState() => _QuizScreenState();
@@ -14,44 +16,46 @@ class _QuizScreenState extends State<QuizScreen> {
   int currentIndex = 0;
   int score = 0;
 
-  void _answerQuestion(int index) {
-    if (index == questions[currentIndex].correctIndex) {
-      score++;
-    }
+  void checkAnswer(bool isCorrect) {
+    if (isCorrect) score++;
+
     if (currentIndex < questions.length - 1) {
-      setState(() {
-        currentIndex++;
-      });
+      setState(() => currentIndex++);
     } else {
-      Navigator.pushReplacementNamed(
+      Navigator.pushReplacement(
         context,
-        '/result',
-        arguments: {'score': score, 'total': questions.length},
+        MaterialPageRoute(
+          builder: (_) => ResultScreen(
+            playerName: widget.playerName,
+            score: score,
+            total: questions.length,
+          ),
+        ),
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final userName = ModalRoute.of(context)!.settings.arguments as String;
     final question = questions[currentIndex];
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Halo, $userName 👋"),
-        centerTitle: true,
+        title: Text("Pertanyaan ${currentIndex + 1}/${questions.length}",
+            style: const TextStyle(color: Colors.white)),
+        backgroundColor: const Color(0xFF7E57C2),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(24),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            QuestionCard(questionText: question.questionText),
+            QuestionCard(text: question.text),
             const SizedBox(height: 20),
-            ...List.generate(
-              question.answers.length,
-              (index) => AnswerButton(
-                text: question.answers[index],
-                onPressed: () => _answerQuestion(index),
+            ...question.answers.map(
+              (answer) => AnswerButton(
+                text: answer.text,
+                onPressed: () => checkAnswer(answer.isCorrect),
               ),
             ),
           ],

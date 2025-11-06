@@ -1,38 +1,53 @@
 import 'package:flutter/material.dart';
+import 'home_screen.dart';
+import '../widgets/primary_button.dart';
 
 class ResultScreen extends StatelessWidget {
-  const ResultScreen({super.key});
+  final String playerName;
+  final int score;
+  final int total;
+
+  const ResultScreen({
+    super.key,
+    required this.playerName,
+    required this.score,
+    required this.total,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as Map;
-    final score = args['score'];
-    final total = args['total'];
-
     return Scaffold(
-      backgroundColor: Colors.indigo[50],
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('assets/images/trophy.png', height: 150),
-            const SizedBox(height: 20),
-            Text(
-              "Skor Akhir Kamu 🎯",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            Text("$score / $total", style: const TextStyle(fontSize: 30)),
-            const SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: () => Navigator.pushReplacementNamed(context, '/'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.indigo,
-                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 12),
+      body: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Selamat, $playerName!",
+                style: const TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF512DA8),
+                ),
               ),
-              child: const Text("Main Lagi", style: TextStyle(color: Colors.white)),
-            ),
-          ],
+              const SizedBox(height: 20),
+              Text(
+                "Skor kamu: $score dari $total",
+                style: const TextStyle(fontSize: 20, color: Colors.black54),
+              ),
+              const SizedBox(height: 40),
+              PrimaryButton(
+                text: "Main Lagi",
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (_) => const HomeScreen()),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

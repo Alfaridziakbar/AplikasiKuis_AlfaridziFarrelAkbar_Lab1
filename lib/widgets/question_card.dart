@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 
 class QuestionCard extends StatelessWidget {
-  final String questionText;
-
-  const QuestionCard({super.key, required this.questionText});
+  final String text;
+  const QuestionCard({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 4)],
+        color: const Color(0xFFEDE7F6),
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Text(
-        questionText,
-        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+        text,
         textAlign: TextAlign.center,
+        style: const TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: Colors.deepPurple,
+        ),
       ),
     );
   }

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'screens/home_screen.dart';
-import 'screens/quiz_screen.dart';
-import 'screens/result_screen.dart';
 
 void main() {
   runApp(const QuizApp());
@@ -13,18 +11,15 @@ class QuizApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Quiz App',
       debugShowCheckedModeBanner: false,
+      title: 'Aesthetic Quiz App',
       theme: ThemeData(
-        fontFamily: 'Poppins', // font kustom
-        primarySwatch: Colors.indigo,
+        fontFamily: 'Poppins',
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF9575CD)),
+        useMaterial3: true,
+        scaffoldBackgroundColor: const Color(0xFFF3E5F5),
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const HomeScreen(),
-        '/quiz': (context) => const QuizScreen(),
-        '/result': (context) => const ResultScreen(),
-      },
+      home: const HomeScreen(),
     );
   }
 }

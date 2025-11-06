@@ -2,18 +2,30 @@ import '../models/question.dart';
 
 final List<Question> questions = [
   Question(
-    questionText: "Apa ibu kota Indonesia?",
-    answers: ["Jakarta", "Bandung", "Surabaya", "Medan"],
-    correctIndex: 0,
+    text: "Apa ibu kota Indonesia?",
+    answers: [
+      Answer(text: "Jakarta", isCorrect: true),
+      Answer(text: "Bandung", isCorrect: false),
+      Answer(text: "Surabaya", isCorrect: false),
+      Answer(text: "Medan", isCorrect: false),
+    ],
   ),
   Question(
-    questionText: "Siapa pencipta Flutter?",
-    answers: ["Apple", "Microsoft", "Google", "Meta"],
-    correctIndex: 2,
+    text: "Siapa pencipta Flutter?",
+    answers: [
+      Answer(text: "Google", isCorrect: true),
+      Answer(text: "Microsoft", isCorrect: false),
+      Answer(text: "Apple", isCorrect: false),
+      Answer(text: "Meta", isCorrect: false),
+    ],
   ),
   Question(
-    questionText: "Bahasa pemrograman Flutter adalah?",
-    answers: ["Dart", "Kotlin", "Swift", "Java"],
-    correctIndex: 0,
+    text: "Bahasa pemrograman Flutter adalah?",
+    answers: [
+      Answer(text: "Dart", isCorrect: true),
+      Answer(text: "Kotlin", isCorrect: false),
+      Answer(text: "Swift", isCorrect: false),
+      Answer(text: "Java", isCorrect: false),
+    ],
   ),
 ];
